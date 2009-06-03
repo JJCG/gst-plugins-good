@@ -103,6 +103,7 @@ check_PROGRAMS = \
 	elements/icydemux \
 	elements/id3demux \
 	elements/interleave \
+	elements/jpegparse \
 	elements/level \
 	elements/matroskamux \
 	elements/multifile \

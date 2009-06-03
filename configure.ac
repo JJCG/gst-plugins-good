@@ -290,6 +290,7 @@ AG_GST_CHECK_PLUGIN(flv)
 AG_GST_CHECK_PLUGIN(id3demux)
 AG_GST_CHECK_PLUGIN(icydemux)
 AG_GST_CHECK_PLUGIN(interleave)
+AG_GST_CHECK_PLUGIN(jpegparse)
 AG_GST_CHECK_PLUGIN(flx)
 AG_GST_CHECK_PLUGIN(goom)
 AG_GST_CHECK_PLUGIN(goom2k1)
@@ -1027,6 +1028,7 @@ gst/flv/Makefile
 gst/id3demux/Makefile
 gst/icydemux/Makefile
 gst/interleave/Makefile
+gst/jpegparse/Makefile
 gst/goom/Makefile
 gst/goom2k1/Makefile
 gst/law/Makefile

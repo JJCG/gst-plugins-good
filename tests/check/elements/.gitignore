@@ -25,6 +25,7 @@ icydemux
 id3demux
 id3v2mux
 interleave
+jpegparse
 level
 matroskamux
 multifile
