@@ -450,6 +450,7 @@ gst_v4l2_buffer_pool_get (GstV4l2BufferPool *pool)
 
   if (buf) {
     GST_BUFFER_SIZE (buf) = buf->vbuffer.length;
+    GST_BUFFER_FLAG_UNSET (buf, 0xffffffff);
   }
 
   pool->running = TRUE;

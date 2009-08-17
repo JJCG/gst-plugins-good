@@ -63,7 +63,7 @@ GST_ELEMENT_DETAILS ("Video (video4linux2) Sink",
 GST_DEBUG_CATEGORY (v4l2sink_debug);
 #define GST_CAT_DEFAULT v4l2sink_debug
 
-#define PROP_DEF_QUEUE_SIZE         8
+#define PROP_DEF_QUEUE_SIZE         12
 #define DEFAULT_PROP_DEVICE   "/dev/video1"
 
 enum
@@ -256,7 +256,6 @@ gst_v4l2sink_class_init (GstV4l2SinkClass * klass)
   basesink_class->set_caps = GST_DEBUG_FUNCPTR (gst_v4l2sink_set_caps);
   basesink_class->buffer_alloc =
       GST_DEBUG_FUNCPTR (gst_v4l2sink_buffer_alloc);
-  basesink_class->preroll = GST_DEBUG_FUNCPTR (gst_v4l2sink_show_frame);
   basesink_class->render = GST_DEBUG_FUNCPTR (gst_v4l2sink_show_frame);
 }
 
@@ -514,8 +513,8 @@ gst_v4l2sink_get_caps (GstBaseSink * bsink)
     if (template) {
       GstCaps *tmp;
 
-      tmp = gst_v4l2_object_probe_caps_for_format (v4l2sink->v4l2object, format->pixelformat,
-          template);
+      tmp = gst_v4l2_object_probe_caps_for_format (v4l2sink->v4l2object,
+          format->pixelformat, template);
       if (tmp)
         gst_caps_append (ret, tmp);
 
@@ -676,7 +675,8 @@ gst_v4l2sink_show_frame (GstBaseSink *bsink, GstBuffer *buf)
         &newbuf);
 
     if (GST_FLOW_OK != ret) {
-      return ret;
+      GST_DEBUG_OBJECT (v4l2sink, "dropping frame!  Consider increasing 'queue-size' property!");
+      return GST_FLOW_OK;
     }
 
     memcpy (GST_BUFFER_DATA (newbuf),
